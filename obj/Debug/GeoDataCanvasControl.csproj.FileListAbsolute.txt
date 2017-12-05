@@ -1,0 +1,15 @@
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.csprojResolveAssemblyReference.cache
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl_MarkupCompile.cache
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl_MarkupCompile.lref
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\bin\Debug\GeoDataCanvasControl.dll
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\bin\Debug\GeoDataCanvasControl.pdb
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\bin\Debug\MathNet.Numerics.dll
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\bin\Debug\MathNet.Numerics.xml
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvas.g.cs
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvas.baml
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.g.resources
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.Properties.Resources.resources
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.csproj.GenerateResource.Cache
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.csproj.CoreCompileInputs.cache
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.dll
+G:\YandexDisk\!Coding\C#\GeoDataCanvasControl\GeoDataCanvasControl\obj\Debug\GeoDataCanvasControl.pdb
