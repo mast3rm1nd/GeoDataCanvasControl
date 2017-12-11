@@ -24,6 +24,8 @@ namespace GeoDataCanvasControl
     /// </summary>
     public partial class GeoDataCanvas : UserControl
     {
+        public int GridStepInMeters { get; private set; }
+
         public GeoDataCanvas()
         {
             InitializeComponent();
@@ -267,12 +269,19 @@ namespace GeoDataCanvasControl
         {
             double pixelsPerMeter = 1 / metersPerPixel;
 
+            //var test = CaltulateGridStepInMeters(metersPerPixel);
+
             #region Vertical lines and labels
             int howManyMetersToLeftAndRightFromCenter = (int)Math.Floor(Canvas_Target.ActualWidth / 2 / pixelsPerMeter);
 
+            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, howManyMetersToLeftAndRightFromCenter);
+
             //int currentMeter = -howManyMetersToLeftAndRightFromCenter;
+
             int howManyMeters = -howManyMetersToLeftAndRightFromCenter;
-            for (double shift = -howManyMetersToLeftAndRightFromCenter * pixelsPerMeter; shift <= howManyMetersToLeftAndRightFromCenter * pixelsPerMeter; shift += pixelsPerMeter, howManyMeters++)
+            for (double shift = -howManyMetersToLeftAndRightFromCenter * pixelsPerMeter;
+                shift <= howManyMetersToLeftAndRightFromCenter * pixelsPerMeter;
+                shift += gridStepInMeters * pixelsPerMeter, howManyMeters += gridStepInMeters)
             {
                 #region Line
                 Line verticalLine = new Line();
@@ -310,7 +319,7 @@ namespace GeoDataCanvasControl
             #region Horizontal lines and labels
             int howManyMetersToTopAndBottomFromCenter = (int)Math.Floor(Canvas_Target.ActualHeight / 2 / pixelsPerMeter);
             howManyMeters = -howManyMetersToTopAndBottomFromCenter;
-            for (double shift = -howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift <= howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift += pixelsPerMeter, howManyMeters++)
+            for (double shift = -howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift <= howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift += gridStepInMeters * pixelsPerMeter, howManyMeters += gridStepInMeters)
             {
                 #region Line
                 Line horizontalLine = new Line();
@@ -374,8 +383,14 @@ namespace GeoDataCanvasControl
             //int howManyMetersToLeftAndRightFromCenter = (int)Math.Floor(Canvas_Target.ActualWidth / 2 / pixelsPerMeter);
 
             //int currentMeter = -howManyMetersToLeftAndRightFromCenter;
+
+            int maxMeters = (int)Math.Floor(Canvas_Target.ActualWidth / pixelsPerMeter);
+            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, maxMeters);
+
             int howManyMeters = 0;
-            for (double shiftFromLeft = 0; shiftFromLeft <= Canvas_Target.ActualWidth; shiftFromLeft += pixelsPerMeter, howManyMeters++)
+            for (double shiftFromLeft = 0;
+                shiftFromLeft <= Canvas_Target.ActualWidth;
+                shiftFromLeft += pixelsPerMeter * gridStepInMeters, howManyMeters += gridStepInMeters)
             {
                 #region Line
                 Line verticalLine = new Line();
@@ -413,7 +428,9 @@ namespace GeoDataCanvasControl
             #region Horizontal lines and labels
             //int howManyMetersToTopAndBottomFromCenter = (int)Math.Floor(Canvas_Target.ActualHeight / pixelsPerMeter);
             howManyMeters = 0;
-            for (double shiftFromBottom = 0; shiftFromBottom <= Canvas_Target.ActualHeight; shiftFromBottom += pixelsPerMeter, howManyMeters++)
+            for (double shiftFromBottom = 0;
+                shiftFromBottom <= Canvas_Target.ActualHeight;
+                shiftFromBottom += pixelsPerMeter * gridStepInMeters, howManyMeters += gridStepInMeters)
             {
                 #region Line
                 Line horizontalLine = new Line();
@@ -468,7 +485,32 @@ namespace GeoDataCanvasControl
             //Canvas_Target.Children.Add(centralVerticalLine);
         }
 
+        private int CaltulateGridStepInMeters(double metersPerPixel, int maxMetersLabel)
+        {
+            //return 6;
+            double pixelsPerMeter = 1 / metersPerPixel;
 
+            double defaultFontSize = new TextBlock().FontSize;
+
+            if(pixelsPerMeter < defaultFontSize * 1.2)
+            {
+                double howManyLabelsPerDimension = Canvas_Target.ActualWidth / (defaultFontSize * 1.2);
+
+                int gridStepInMeters = (int)Math.Ceiling((defaultFontSize * 1.5) / pixelsPerMeter);
+
+                //int labelsPerSide = (int)Math.Ceiling(howManyLabelsPerDimension / 2);
+                while (maxMetersLabel % gridStepInMeters != 0)
+                    gridStepInMeters++;
+
+                GridStepInMeters = gridStepInMeters;
+
+                return gridStepInMeters;
+            }
+
+            GridStepInMeters = 1;
+
+            return 1;
+        }
 
         private static double GetDistanceBetweenPoints(PointF point1, PointF point2)
         {
