@@ -318,6 +318,7 @@ namespace GeoDataCanvasControl
 
             #region Horizontal lines and labels
             int howManyMetersToTopAndBottomFromCenter = (int)Math.Floor(Canvas_Target.ActualHeight / 2 / pixelsPerMeter);
+            gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, ref howManyMetersToTopAndBottomFromCenter);
             howManyMeters = -howManyMetersToTopAndBottomFromCenter;
             for (double shift = -howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift <= howManyMetersToTopAndBottomFromCenter * pixelsPerMeter; shift += gridStepInMeters * pixelsPerMeter, howManyMeters += gridStepInMeters)
             {
@@ -508,7 +509,13 @@ namespace GeoDataCanvasControl
                     while (maxMetersLabel % finalGridStepInMeters != 0)
                         finalGridStepInMeters++;
 
-                    if (finalGridStepInMeters == maxMetersLabel)
+                    //if (finalGridStepInMeters == maxMetersLabel)
+                    //    maxMetersLabel--;
+                    //else
+                    //    break;
+
+
+                    if (finalGridStepInMeters > 10)
                         maxMetersLabel--;
                     else
                         break;
