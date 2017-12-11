@@ -274,7 +274,7 @@ namespace GeoDataCanvasControl
             #region Vertical lines and labels
             int howManyMetersToLeftAndRightFromCenter = (int)Math.Floor(Canvas_Target.ActualWidth / 2 / pixelsPerMeter);
 
-            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, howManyMetersToLeftAndRightFromCenter);
+            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, ref howManyMetersToLeftAndRightFromCenter);
 
             //int currentMeter = -howManyMetersToLeftAndRightFromCenter;
 
@@ -385,7 +385,7 @@ namespace GeoDataCanvasControl
             //int currentMeter = -howManyMetersToLeftAndRightFromCenter;
 
             int maxMeters = (int)Math.Floor(Canvas_Target.ActualWidth / pixelsPerMeter);
-            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, maxMeters);
+            int gridStepInMeters = CaltulateGridStepInMeters(metersPerPixel, ref maxMeters);
 
             int howManyMeters = 0;
             for (double shiftFromLeft = 0;
@@ -485,7 +485,7 @@ namespace GeoDataCanvasControl
             //Canvas_Target.Children.Add(centralVerticalLine);
         }
 
-        private int CaltulateGridStepInMeters(double metersPerPixel, int maxMetersLabel)
+        private int CaltulateGridStepInMeters(double metersPerPixel, ref int maxMetersLabel)
         {
             //return 6;
             double pixelsPerMeter = 1 / metersPerPixel;
@@ -496,15 +496,28 @@ namespace GeoDataCanvasControl
             {
                 double howManyLabelsPerDimension = Canvas_Target.ActualWidth / (defaultFontSize * 1.2);
 
-                int gridStepInMeters = (int)Math.Ceiling((defaultFontSize * 1.5) / pixelsPerMeter);
+                int startingGridStepInMeters = (int)Math.Ceiling((defaultFontSize * 1.5) / pixelsPerMeter);
+                int finalGridStepInMeters = -1;
 
                 //int labelsPerSide = (int)Math.Ceiling(howManyLabelsPerDimension / 2);
-                while (maxMetersLabel % gridStepInMeters != 0)
-                    gridStepInMeters++;
 
-                GridStepInMeters = gridStepInMeters;
+                while (true)
+                {
+                    finalGridStepInMeters = startingGridStepInMeters;
 
-                return gridStepInMeters;
+                    while (maxMetersLabel % finalGridStepInMeters != 0)
+                        finalGridStepInMeters++;
+
+                    if (finalGridStepInMeters == maxMetersLabel)
+                        maxMetersLabel--;
+                    else
+                        break;
+                }
+                
+
+                GridStepInMeters = finalGridStepInMeters;
+
+                return finalGridStepInMeters;
             }
 
             GridStepInMeters = 1;
